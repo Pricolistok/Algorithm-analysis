@@ -39,20 +39,23 @@ ifeq ($(mode), coverage)
 endif
 
 # Основная цель
-app.exe: out/main.o out/simple_multiplication.o out/vinograd_algorithm.o out/funcs.o
-	$(CXX) -o app.exe out/main.o out/simple_multiplication.o out/vinograd_algorithm.o out/funcs.o $(LDFLAGS) $(EXEFLAGS)
+app.exe: out/main.o out/simple_multiplication.o out/vinograd_algorithm.o out/funcs.o out/input_output.o
+	$(CXX) -o app.exe out/main.o out/simple_multiplication.o out/vinograd_algorithm.o out/funcs.o out/input_output.o $(LDFLAGS) $(EXEFLAGS)
 
 out/main.o: src/main.cpp
 	$(CXX) $(CXXFLAGS) -o out/main.o -c src/main.cpp
 
-out/simple_multiplication.o: src/simple_multiplication.cpp inc/errors.h
+out/simple_multiplication.o: src/simple_multiplication.cpp inc/errors.h inc/simple_multiplication.h
 	$(CXX) $(CXXFLAGS) -o out/simple_multiplication.o -c src/simple_multiplication.cpp
 
-out/vinograd_algorithm.o: src/vinograd_algorithm.cpp inc/errors.h
+out/vinograd_algorithm.o: src/vinograd_algorithm.cpp inc/errors.h inc/vinograd_algorithm.h
 	$(CXX) $(CXXFLAGS) -o out/vinograd_algorithm.o -c src/vinograd_algorithm.cpp
 
-out/funcs.o: src/funcs.cpp
+out/funcs.o: src/funcs.cpp inc/funcs.h inc/input_output.h inc/simple_multiplication.h inc/vinograd_algorithm.h inc/errors.h
 	$(CXX) $(CXXFLAGS) -o out/funcs.o -c src/funcs.cpp
+
+out/input_output.o: src/input_output.cpp inc/input_output.h inc/errors.h
+	$(CXX) $(CXXFLAGS) -o out/input_output.o -c src/input_output.cpp
 
 .PHONY: clean run
 
