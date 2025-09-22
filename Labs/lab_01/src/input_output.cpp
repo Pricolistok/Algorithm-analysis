@@ -1,7 +1,7 @@
 #include <cstddef>
 #include <cstdlib>
 #include <iostream>
-#include "../inc/errors.h"
+#include "errors.h"
 using namespace std;
 
 int input_sizes(size_t *n, size_t *m)

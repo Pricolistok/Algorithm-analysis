@@ -1,63 +1,50 @@
 CXX := g++
-CXXFLAGS := -std=c++23 -Wall -Werror -Wpedantic -Wextra -Wvla -Wfloat-conversion -Wfloat-equal -Iinc
+CXXFLAGS := -std=c++23 -Wall -Werror -Wpedantic -Wextra -Wvla -Wfloat-conversion -Wfloat-equal -Iinc -MMD -MP
 LDFLAGS :=
 EXEFLAGS :=
 
-# Создание выходной директории (Windows-совместимое)
+SRC := $(wildcard src/*.cpp)
+OBJ := $(SRC:src/%.cpp=out/%.o)
+DEP := $(OBJ:.o=.d)
+
 $(shell if not exist out mkdir out)
 
-# Режимы сборки
-ifeq ($(mode), release)
+ifeq ($(mode),release)
   CXXFLAGS += -O2 -DNDEBUG
 endif
 
-ifeq ($(mode), debug)
+ifeq ($(mode),debug)
   CXXFLAGS += -g -O0
 endif
 
-ifeq ($(mode), memory)
+ifeq ($(mode),memory)
   CXXFLAGS += -fsanitize=memory -fPIE -fno-omit-frame-pointer -g -O0
   LDFLAGS += -fsanitize=memory -pie
   CXX := clang++
 endif
 
-ifeq ($(mode), address)
+ifeq ($(mode),address)
   CXXFLAGS += -fsanitize=address -fno-omit-frame-pointer -g -O0
   LDFLAGS += -fsanitize=address
   CXX := clang++
 endif
 
-ifeq ($(mode), ubsan)
+ifeq ($(mode),ubsan)
   CXXFLAGS += -fsanitize=undefined -fno-omit-frame-pointer -g -O0
   LDFLAGS += -fsanitize=undefined
   CXX := clang++
 endif
 
-ifeq ($(mode), coverage)
+ifeq ($(mode),coverage)
   CXXFLAGS += --coverage
   LDFLAGS += --coverage
 endif
 
-# Основная цель
-app.exe: out/main.o out/simple_multiplication.o out/vinograd_algorithm.o out/funcs.o out/input_output.o
-	$(CXX) -o app.exe out/main.o out/simple_multiplication.o out/vinograd_algorithm.o out/funcs.o out/input_output.o $(LDFLAGS) $(EXEFLAGS)
+app.exe: $(OBJ)
+	$(CXX) -o $@ $^ $(LDFLAGS) $(EXEFLAGS)
 
-out/main.o: src/main.cpp
-	$(CXX) $(CXXFLAGS) -o out/main.o -c src/main.cpp
-
-out/simple_multiplication.o: src/simple_multiplication.cpp inc/errors.h inc/simple_multiplication.h
-	$(CXX) $(CXXFLAGS) -o out/simple_multiplication.o -c src/simple_multiplication.cpp
-
-out/vinograd_algorithm.o: src/vinograd_algorithm.cpp inc/errors.h inc/vinograd_algorithm.h
-	$(CXX) $(CXXFLAGS) -o out/vinograd_algorithm.o -c src/vinograd_algorithm.cpp
-
-out/funcs.o: src/funcs.cpp inc/funcs.h inc/input_output.h inc/simple_multiplication.h inc/vinograd_algorithm.h inc/errors.h
-	$(CXX) $(CXXFLAGS) -o out/funcs.o -c src/funcs.cpp
-
-out/input_output.o: src/input_output.cpp inc/input_output.h inc/errors.h
-	$(CXX) $(CXXFLAGS) -o out/input_output.o -c src/input_output.cpp
-
-.PHONY: clean run
+out/%.o: src/%.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
 	del /Q out\* 2>nul
@@ -67,12 +54,13 @@ clean:
 run: app.exe
 	app.exe
 
-# Дополнительные цели
-debug: mode = debug
+debug: mode=debug
 debug: app.exe
 
-release: mode = release
+release: mode=release
 release: app.exe
 
-address: mode = address
+address: mode=address
 address: app.exe
+
+-include $(DEP)

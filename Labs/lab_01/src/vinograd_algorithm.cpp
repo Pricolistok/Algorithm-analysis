@@ -1,8 +1,8 @@
 #include <cstddef>
 #include <cstdlib>
 
-#include "../inc/errors.h"
-#include "../inc/vinograd_algorithm.h"
+#include "errors.h"
+#include "vinograd_algorithm.h"
 
 
 int vinograd_algorithm(size_t n, size_t m, size_t t,

@@ -3,26 +3,21 @@
 #include <iostream>
 #include <x86intrin.h>
 #include <cstdint>
+#include <iomanip>
 #include <fstream>
 #include <chrono>
-#include "../inc/input_output.h"
-#include "../inc/funcs.h"
-#include "../inc/simple_multiplication.h"
-#include "../inc/vinograd_algorithm.h"
-#include "../inc/errors.h"
+#include "input_output.h"
+#include "funcs.h"
+#include "simple_multiplication.h"
+#include "vinograd_algorithm.h"
+#include "vinograd_update.h"
+#include "errors.h"
 
 using namespace std;
 
 
-inline void compiler_barrier() {
-    asm volatile ("" : : : "memory");
-}
-
-
 inline uint64_t read_tsc() {
-    compiler_barrier();
     uint64_t tsc = __rdtsc();
-    compiler_barrier();
     return tsc;
 }
 
@@ -149,6 +144,10 @@ int multiply_two_matrix()
     vinograd_algorithm(n_a, m_a, m_b, matrix_a, matrix_b, matrix_result);
     print_matrix(matrix_result, n_a, m_b);
 
+    cout << endl << "Vinograd Update:" << endl;
+    vinograd_algorithm_update(n_a, m_a, m_b, matrix_a, matrix_b, matrix_result);
+    print_matrix(matrix_result, n_a, m_b);
+
     free_memory_matrix(matrix_a, n_a);
     free_memory_matrix(matrix_b, n_b);
     free_memory_matrix(matrix_result, n_a);
@@ -157,35 +156,49 @@ int multiply_two_matrix()
 }
 
 
-void write_result_to_file(const std::string &filename,
+void write_result_to_file(const string &filename,
                           size_t size,
                           unsigned long long avg_simple,
-                          unsigned long long avg_vinograd)
+                          unsigned long long avg_vinograd,
+                          unsigned long long avg_vinograd_update)
 {
-    std::ofstream file(filename, std::ios::app);
+    ofstream file(filename, ios::app);
     if (!file.is_open())
     {
         cout << "Error: cannot open file " << endl;
         return;
     }
-    file << size << " " << avg_simple << " " << avg_vinograd << "\n";
+
+    file << size << " "
+         << avg_simple << " "
+         << avg_vinograd << " "
+         << avg_vinograd_update << "\n";
     file.close();
 }
+
 
 int time_tests()
 {
     int rc;
     double **matrix_a, **matrix_b, **matrix_result, *data;
-    unsigned long long start, end, total_simple, total_vinograd;
+    unsigned long long start, end, total_simple, total_vinograd, total_vinograd_update;
     const int measurements = 100;
     const string out_file = "results.txt";
 
-    cout << "Matrix Size | Simple (ns) | Vinograd (ns)" << endl;
-    cout << "-----------------------------------------" << endl;
+    remove(out_file.c_str());
+    cout << left
+         << setw(12) << "Matrix Size" << "|"
+         << setw(15) << "Simple (cycles)" << "|"
+         << setw(17) << "Vinograd (cycles)" << "|"
+         << setw(22) << "Vinograd update (cycles)" << endl;
+
+    cout << string(12, '-') << "+"
+         << string(15, '-') << "+"
+         << string(17, '-') << "+"
+         << string(22, '-') << endl;
 
     for (size_t i = 1; i < 50; i++)
     {
-
         rc = add_memory_for_matrices(&matrix_a, &matrix_b, &matrix_result, i, i, i, i);
         if (rc != OK)
         {
@@ -207,6 +220,8 @@ int time_tests()
         input_data_to_matrix(matrix_a, data, i, i);
         input_data_to_matrix(matrix_b, data, i, i);
 
+        total_simple = total_vinograd = total_vinograd_update = 0;
+
         for (int j = 0; j < measurements; j++)
         {
             start = __rdtsc();
@@ -218,16 +233,25 @@ int time_tests()
             vinograd_algorithm(i, i, i, matrix_a, matrix_b, matrix_result);
             end = __rdtsc();
             total_vinograd += end - start;
+
+            start = __rdtsc();
+            vinograd_algorithm_update(i, i, i, matrix_a, matrix_b, matrix_result);
+            end = __rdtsc();
+            total_vinograd_update += end - start;
         }
 
         auto avg_simple = total_simple / measurements;
         auto avg_vinograd = total_vinograd / measurements;
+        auto avg_vinograd_update = total_vinograd_update / measurements;
 
-        cout << i << "x" << i << " | "
-             << avg_simple << " | "
-             << avg_vinograd << endl;
+        // Строка таблицы
+        cout << left
+             << setw(12) << (to_string(i) + "x" + to_string(i)) << "|"
+             << setw(15) << avg_simple << "|"
+             << setw(17) << avg_vinograd << "|"
+             << setw(22) << avg_vinograd_update << endl;
 
-        write_result_to_file(out_file, i, avg_simple, avg_vinograd);
+        write_result_to_file(out_file, i, avg_simple, avg_vinograd, avg_vinograd_update);
 
         free_memory_matrix(matrix_a, i);
         free_memory_matrix(matrix_b, i);
@@ -235,10 +259,16 @@ int time_tests()
         free(data);
     }
 
-    cout << "-----------------------------------------" << endl;
+    cout << string(12, '-') << "+"
+         << string(15, '-') << "+"
+         << string(17, '-') << "+"
+         << string(22, '-') << endl;
+
     cout << "Time tests completed successfully" << endl;
     return OK;
 }
+
+
 
 //1 2 3
 //4 5 6

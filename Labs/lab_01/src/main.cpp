@@ -1,9 +1,9 @@
 #include <iostream>
-#include "../inc/vinograd_algorithm.h"
-#include "../inc/simple_multiplication.h"
-#include "../inc/funcs.h"
-#include "../inc/errors.h"
-#include "../inc/input_output.h"
+#include "vinograd_algorithm.h"
+#include "simple_multiplication.h"
+#include "funcs.h"
+#include "errors.h"
+#include "input_output.h"
 
 
 using namespace std;
