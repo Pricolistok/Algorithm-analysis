@@ -1,6 +1,10 @@
 #include <cstddef>
 #include <cstdlib>
 #include <iostream>
+#include <x86intrin.h>
+#include <cstdint>
+#include <fstream>
+#include <chrono>
 #include "../inc/input_output.h"
 #include "../inc/funcs.h"
 #include "../inc/simple_multiplication.h"
@@ -9,6 +13,18 @@
 
 using namespace std;
 
+
+inline void compiler_barrier() {
+    asm volatile ("" : : : "memory");
+}
+
+
+inline uint64_t read_tsc() {
+    compiler_barrier();
+    uint64_t tsc = __rdtsc();
+    compiler_barrier();
+    return tsc;
+}
 
 void free_memory_matrix(double **arr, size_t n)
 {
@@ -140,6 +156,89 @@ int multiply_two_matrix()
     return OK;
 }
 
+
+void write_result_to_file(const std::string &filename,
+                          size_t size,
+                          unsigned long long avg_simple,
+                          unsigned long long avg_vinograd)
+{
+    std::ofstream file(filename, std::ios::app);
+    if (!file.is_open())
+    {
+        cout << "Error: cannot open file " << endl;
+        return;
+    }
+    file << size << " " << avg_simple << " " << avg_vinograd << "\n";
+    file.close();
+}
+
+int time_tests()
+{
+    int rc;
+    double **matrix_a, **matrix_b, **matrix_result, *data;
+    unsigned long long start, end, total_simple, total_vinograd;
+    const int measurements = 100;
+    const string out_file = "results.txt";
+
+    cout << "Matrix Size | Simple (ns) | Vinograd (ns)" << endl;
+    cout << "-----------------------------------------" << endl;
+
+    for (size_t i = 1; i < 50; i++)
+    {
+
+        rc = add_memory_for_matrices(&matrix_a, &matrix_b, &matrix_result, i, i, i, i);
+        if (rc != OK)
+        {
+            cerr << "Error: Failed to allocate memory for " << i << "x" << i << " matrices" << endl;
+            return rc;
+        }
+
+        data = add_memory_to_array(i * i);
+        if (!data)
+        {
+            free_memory_matrix(matrix_a, i);
+            free_memory_matrix(matrix_b, i);
+            free_memory_matrix(matrix_result, i);
+            cerr << "Error: Failed to allocate data array for size " << i << "x" << i << endl;
+            return ERROR_ADD_MEM;
+        }
+
+        generate_data_array(data, i * i);
+        input_data_to_matrix(matrix_a, data, i, i);
+        input_data_to_matrix(matrix_b, data, i, i);
+
+        for (int j = 0; j < measurements; j++)
+        {
+            start = __rdtsc();
+            simple_multiplication(i, i, i, matrix_a, matrix_b, matrix_result);
+            end = __rdtsc();
+            total_simple += end - start;
+
+            start = __rdtsc();
+            vinograd_algorithm(i, i, i, matrix_a, matrix_b, matrix_result);
+            end = __rdtsc();
+            total_vinograd += end - start;
+        }
+
+        auto avg_simple = total_simple / measurements;
+        auto avg_vinograd = total_vinograd / measurements;
+
+        cout << i << "x" << i << " | "
+             << avg_simple << " | "
+             << avg_vinograd << endl;
+
+        write_result_to_file(out_file, i, avg_simple, avg_vinograd);
+
+        free_memory_matrix(matrix_a, i);
+        free_memory_matrix(matrix_b, i);
+        free_memory_matrix(matrix_result, i);
+        free(data);
+    }
+
+    cout << "-----------------------------------------" << endl;
+    cout << "Time tests completed successfully" << endl;
+    return OK;
+}
 
 //1 2 3
 //4 5 6

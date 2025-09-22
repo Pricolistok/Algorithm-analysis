@@ -63,7 +63,6 @@ clean:
 	del /Q out\* 2>nul
 	del /Q *.exe 2>nul
 	del /Q *.txt 2>nul
-	del /Q func_tests\scripts\*.txt 2>nul
 
 run: app.exe
 	app.exe
