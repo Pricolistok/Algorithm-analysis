@@ -5,6 +5,10 @@
 #include "errors.h"
 #include "input_output.h"
 
+#define CNT_TIMES 100
+#define MEASUREMENTS 20
+#define VERBOSE 1
+
 
 using namespace std;
 
@@ -28,7 +32,7 @@ int main()
     if (choice == 1)
         return multiply_two_matrix();
     else if (choice == 2)
-        return time_tests();
+        return time_tests(CNT_TIMES, MEASUREMENTS, VERBOSE);
     else if (choice == 3)
         return OK;
     else

@@ -1,13 +1,16 @@
 CXX := g++
 CXXFLAGS := -std=c++23 -Wall -Werror -Wpedantic -Wextra -Wvla -Wfloat-conversion -Wfloat-equal -Iinc -MMD -MP
 LDFLAGS :=
-EXEFLAGS :=
+
+$(shell mkdir -p out)
 
 SRC := $(wildcard src/*.cpp)
-OBJ := $(SRC:src/%.cpp=out/%.o)
+OBJ := $(patsubst src/%,out/%,$(SRC:.cpp=.o))
 DEP := $(OBJ:.o=.d)
 
-$(shell if not exist out mkdir out)
+TEST_SRC := $(wildcard unit_tests/*.cpp)
+TEST_OBJ := $(patsubst unit_tests/%,out/%,$(TEST_SRC:.cpp=.o))
+TEST_DEP := $(TEST_OBJ:.o=.d)
 
 ifeq ($(mode),release)
   CXXFLAGS += -O2 -DNDEBUG
@@ -17,50 +20,24 @@ ifeq ($(mode),debug)
   CXXFLAGS += -g -O0
 endif
 
-ifeq ($(mode),memory)
-  CXXFLAGS += -fsanitize=memory -fPIE -fno-omit-frame-pointer -g -O0
-  LDFLAGS += -fsanitize=memory -pie
-  CXX := clang++
-endif
-
-ifeq ($(mode),address)
-  CXXFLAGS += -fsanitize=address -fno-omit-frame-pointer -g -O0
-  LDFLAGS += -fsanitize=address
-  CXX := clang++
-endif
-
-ifeq ($(mode),ubsan)
-  CXXFLAGS += -fsanitize=undefined -fno-omit-frame-pointer -g -O0
-  LDFLAGS += -fsanitize=undefined
-  CXX := clang++
-endif
-
-ifeq ($(mode),coverage)
-  CXXFLAGS += --coverage
-  LDFLAGS += --coverage
-endif
-
 app.exe: $(OBJ)
-	$(CXX) -o $@ $^ $(LDFLAGS) $(EXEFLAGS)
+	$(CXX) -o $@ $^ $(LDFLAGS)
 
 out/%.o: src/%.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
+
+test: out/test
+	./out/test
+
+out/test: $(TEST_OBJ) out/funcs.o out/input_output.o out/simple_multiplication.o out/vinograd_algorithm.o out/vinograd_update.o
+	$(CXX) -o $@ $^ -lcheck -lsubunit -lpthread -lrt
+
+out/%.o: unit_tests/%.cpp
+	$(CXX) $(CXXFLAGS) -Iunit_tests -c $< -o $@
+
 clean:
-	del /Q out\* 2>nul
-	del /Q *.exe 2>nul
-	del /Q *.txt 2>nul
-
-run: app.exe
-	app.exe
-
-debug: mode=debug
-debug: app.exe
-
-release: mode=release
-release: app.exe
-
-address: mode=address
-address: app.exe
+	rm -f out/*.o out/*.d app.exe out/test
 
 -include $(DEP)
+-include $(TEST_DEP)

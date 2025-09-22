@@ -1,14 +1,14 @@
 #include <cstddef>
 #include <cstdlib>
-
-#include "errors.h"
 #include "vinograd_algorithm.h"
+#include "errors.h"
 
 
 int vinograd_algorithm(size_t n, size_t m, size_t t,
                        double **matrix_A, double **matrix_B, double **result_matrix)
 {
-
+    if (n != t)
+        return ERROR;
     double *tmp_a = (double*)calloc(n, sizeof(double));
     if (!tmp_a)
         return ERROR_ADD_MEM;

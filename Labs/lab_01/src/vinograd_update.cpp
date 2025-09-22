@@ -1,15 +1,18 @@
 #include <cstddef>
 #include <cstdlib>
-
 #include "errors.h"
-#include "vinograd_algorithm.h"
+#include "vinograd_update.h"
+
 
 int vinograd_algorithm_update(size_t n, size_t m, size_t t,
                        double **matrix_A, double **matrix_B, double **result_matrix)
 {
-    // предварительные вычисления
-    size_t half_m = m / 2;    // чтобы не вычислять m/2 в каждом цикле
-    size_t last = m - 1;      // последний индекс для нечётного m
+
+    if (n != t)
+        return ERROR;
+
+    size_t half_m = m / 2;
+    size_t last = m - 1;
 
     double *tmp_a = (double*)calloc(n, sizeof(double));
     if (!tmp_a)
@@ -22,7 +25,6 @@ int vinograd_algorithm_update(size_t n, size_t m, size_t t,
         return ERROR_ADD_MEM;
     }
 
-    // буферизация строк A
     for (size_t i = 0; i < n; i++)
     {
         double sum = 0.0;
@@ -35,7 +37,6 @@ int vinograd_algorithm_update(size_t n, size_t m, size_t t,
         tmp_a[i] = sum;
     }
 
-    // буферизация столбцов B
     for (size_t j = 0; j < t; j++)
     {
         double sum = 0.0;
@@ -48,7 +49,6 @@ int vinograd_algorithm_update(size_t n, size_t m, size_t t,
         tmp_b[j] = sum;
     }
 
-    // основной цикл
     for (size_t i = 0; i < n; i++)
     {
         for (size_t j = 0; j < t; j++)
@@ -68,7 +68,6 @@ int vinograd_algorithm_update(size_t n, size_t m, size_t t,
         }
     }
 
-    // обработка нечётного числа столбцов/строк
     if (m % 2 != 0)
     {
         for (size_t i = 0; i < n; i++)

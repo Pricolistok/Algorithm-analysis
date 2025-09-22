@@ -5,7 +5,6 @@
 #include <cstdint>
 #include <iomanip>
 #include <fstream>
-#include <chrono>
 #include "input_output.h"
 #include "funcs.h"
 #include "simple_multiplication.h"
@@ -137,15 +136,39 @@ int multiply_two_matrix()
     input_matrix(matrix_b, n_b, m_b);
 
     cout << "Simple:" << endl;
-    simple_multiplication(n_a, m_a, m_b, matrix_a, matrix_b, matrix_result);
+    rc = simple_multiplication(n_a, m_a, m_b, matrix_a, matrix_b, matrix_result);
+    if (rc != OK)
+    {
+        free_memory_matrix(matrix_a, n_a);
+        free_memory_matrix(matrix_b, n_b);
+        free_memory_matrix(matrix_result, n_a);
+        cout << "Error multiply!" << endl;
+        return rc;
+    }
     print_matrix(matrix_result, n_a, m_b);
 
     cout << endl << "Vinograd:" << endl;
-    vinograd_algorithm(n_a, m_a, m_b, matrix_a, matrix_b, matrix_result);
+    rc = vinograd_algorithm(n_a, m_a, m_b, matrix_a, matrix_b, matrix_result);
+    if (rc != OK)
+    {
+        free_memory_matrix(matrix_a, n_a);
+        free_memory_matrix(matrix_b, n_b);
+        free_memory_matrix(matrix_result, n_a);
+        cout << "Error multiply!" << endl;
+        return rc;
+    }
     print_matrix(matrix_result, n_a, m_b);
 
     cout << endl << "Vinograd Update:" << endl;
-    vinograd_algorithm_update(n_a, m_a, m_b, matrix_a, matrix_b, matrix_result);
+    rc = vinograd_algorithm_update(n_a, m_a, m_b, matrix_a, matrix_b, matrix_result);
+    if (rc != OK)
+    {
+        free_memory_matrix(matrix_a, n_a);
+        free_memory_matrix(matrix_b, n_b);
+        free_memory_matrix(matrix_result, n_a);
+        cout << "Error multiply!" << endl;
+        return rc;
+    }
     print_matrix(matrix_result, n_a, m_b);
 
     free_memory_matrix(matrix_a, n_a);
@@ -177,32 +200,35 @@ void write_result_to_file(const string &filename,
 }
 
 
-int time_tests()
+int time_tests(size_t cnt_times, size_t measurements, bool verbose)
 {
     int rc;
     double **matrix_a, **matrix_b, **matrix_result, *data;
     unsigned long long start, end, total_simple, total_vinograd, total_vinograd_update;
-    const int measurements = 100;
     const string out_file = "results.txt";
 
     remove(out_file.c_str());
-    cout << left
-         << setw(12) << "Matrix Size" << "|"
-         << setw(15) << "Simple (cycles)" << "|"
-         << setw(17) << "Vinograd (cycles)" << "|"
-         << setw(22) << "Vinograd update (cycles)" << endl;
+    if (!verbose)
+    {
+        cout << left
+             << setw(12) << "Matrix Size" << "|"
+             << setw(15) << "Simple (cycles)" << "|"
+             << setw(17) << "Vinograd (cycles)" << "|"
+             << setw(22) << "Vinograd update (cycles)" << endl;
 
-    cout << string(12, '-') << "+"
-         << string(15, '-') << "+"
-         << string(17, '-') << "+"
-         << string(22, '-') << endl;
+        cout << string(12, '-') << "+"
+             << string(15, '-') << "+"
+             << string(17, '-') << "+"
+             << string(22, '-') << endl;
+    }
 
-    for (size_t i = 1; i < 50; i++)
+    for (size_t i = 1; i < cnt_times; i++)
     {
         rc = add_memory_for_matrices(&matrix_a, &matrix_b, &matrix_result, i, i, i, i);
         if (rc != OK)
         {
-            cerr << "Error: Failed to allocate memory for " << i << "x" << i << " matrices" << endl;
+            if (!verbose)
+                cout << "Error: Failed to allocate memory for " << i << "x" << i << " matrices" << endl;
             return rc;
         }
 
@@ -212,7 +238,8 @@ int time_tests()
             free_memory_matrix(matrix_a, i);
             free_memory_matrix(matrix_b, i);
             free_memory_matrix(matrix_result, i);
-            cerr << "Error: Failed to allocate data array for size " << i << "x" << i << endl;
+            if (!verbose)
+                cout << "Error: Failed to allocate data array for size " << i << "x" << i << endl;
             return ERROR_ADD_MEM;
         }
 
@@ -222,20 +249,47 @@ int time_tests()
 
         total_simple = total_vinograd = total_vinograd_update = 0;
 
-        for (int j = 0; j < measurements; j++)
+        for (size_t j = 0; j < measurements; j++)
         {
             start = __rdtsc();
-            simple_multiplication(i, i, i, matrix_a, matrix_b, matrix_result);
+            rc = simple_multiplication(i, i, i, matrix_a, matrix_b, matrix_result);
+            if (rc != OK)
+            {
+                free_memory_matrix(matrix_a, i);
+                free_memory_matrix(matrix_b, i);
+                free_memory_matrix(matrix_result, i);
+                if (!verbose)
+                    cout << "Error multiply!" << endl;
+                return ERROR;
+            }
             end = __rdtsc();
             total_simple += end - start;
 
             start = __rdtsc();
-            vinograd_algorithm(i, i, i, matrix_a, matrix_b, matrix_result);
+            rc = vinograd_algorithm(i, i, i, matrix_a, matrix_b, matrix_result);
+            if (rc != OK)
+            {
+                free_memory_matrix(matrix_a, i);
+                free_memory_matrix(matrix_b, i);
+                free_memory_matrix(matrix_result, i);
+                if (!verbose)
+                    cout << "Error multiply!" << endl;
+                return ERROR;
+            }
             end = __rdtsc();
             total_vinograd += end - start;
 
             start = __rdtsc();
-            vinograd_algorithm_update(i, i, i, matrix_a, matrix_b, matrix_result);
+            rc = vinograd_algorithm_update(i, i, i, matrix_a, matrix_b, matrix_result);
+            if (rc != OK)
+            {
+                free_memory_matrix(matrix_a, i);
+                free_memory_matrix(matrix_b, i);
+                free_memory_matrix(matrix_result, i);
+                if (!verbose)
+                    cout << "Error multiply!" << endl;
+                return ERROR;
+            }
             end = __rdtsc();
             total_vinograd_update += end - start;
         }
@@ -244,12 +298,14 @@ int time_tests()
         auto avg_vinograd = total_vinograd / measurements;
         auto avg_vinograd_update = total_vinograd_update / measurements;
 
-        // Строка таблицы
-        cout << left
-             << setw(12) << (to_string(i) + "x" + to_string(i)) << "|"
-             << setw(15) << avg_simple << "|"
-             << setw(17) << avg_vinograd << "|"
-             << setw(22) << avg_vinograd_update << endl;
+        if (!verbose)
+        {
+            cout << left
+                 << setw(12) << (to_string(i) + "x" + to_string(i)) << "|"
+                 << setw(15) << avg_simple << "|"
+                 << setw(17) << avg_vinograd << "|"
+                 << setw(22) << avg_vinograd_update << endl;
+        }
 
         write_result_to_file(out_file, i, avg_simple, avg_vinograd, avg_vinograd_update);
 
@@ -259,20 +315,14 @@ int time_tests()
         free(data);
     }
 
-    cout << string(12, '-') << "+"
-         << string(15, '-') << "+"
-         << string(17, '-') << "+"
-         << string(22, '-') << endl;
+    if (!verbose)
+    {
+        cout << string(12, '-') << "+"
+             << string(15, '-') << "+"
+             << string(17, '-') << "+"
+             << string(22, '-') << endl;
 
-    cout << "Time tests completed successfully" << endl;
+        cout << "Time tests completed successfully" << endl;
+    }
     return OK;
 }
-
-
-
-//1 2 3
-//4 5 6
-//7 8 9
-//1 2 3
-//4 5 6
-//7 8 9
