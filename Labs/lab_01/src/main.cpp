@@ -5,9 +5,9 @@
 #include "errors.h"
 #include "input_output.h"
 
-#define CNT_TIMES 100
-#define MEASUREMENTS 20
-#define VERBOSE 1
+#define CNT_TIMES 500
+#define MEASUREMENTS 50
+#define VERBOSE 0
 
 
 using namespace std;

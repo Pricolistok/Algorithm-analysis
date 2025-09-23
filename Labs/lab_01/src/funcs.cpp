@@ -74,6 +74,7 @@ void generate_data_array(double *arr, size_t n)
         arr[i] = i;
 }
 
+
 int add_memory_for_matrices(double ***matrix_a, double ***matrix_b, double ***matrix_result,
                             size_t n_a, size_t m_a, size_t n_b, size_t m_b)
 {
