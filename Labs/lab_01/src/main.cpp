@@ -6,7 +6,7 @@
 #include "input_output.h"
 
 #define CNT_TIMES 500
-#define MEASUREMENTS 50
+#define MEASUREMENTS 500
 #define VERBOSE 0
 
 

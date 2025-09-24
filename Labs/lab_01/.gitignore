@@ -1,3 +1,5 @@
 .venv
 ./out
 .idea
+./-p
+./cmake-build-debug

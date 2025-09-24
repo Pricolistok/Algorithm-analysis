@@ -223,7 +223,7 @@ int time_tests(size_t cnt_times, size_t measurements, bool verbose)
              << string(22, '-') << endl;
     }
 
-    for (size_t i = 1; i < cnt_times; i++)
+    for (size_t i = 1; i < cnt_times; i += 10)
     {
         rc = add_memory_for_matrices(&matrix_a, &matrix_b, &matrix_result, i, i, i, i);
         if (rc != OK)
