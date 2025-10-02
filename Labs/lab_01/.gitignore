@@ -1,5 +1,12 @@
-.venv
-./out
-.idea
-./-p
-./cmake-build-debug
+./code/.idea
+./code/.venv
+./code/-p
+./code/cmake-build-debug
+./code/results.txt
+./code/out
+./report/*.aux
+./report/*.log
+./report/*.gz
+./report/*.toc
+./report/*.out
+./idea

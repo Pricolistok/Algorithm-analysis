@@ -1,1 +1,0 @@
-CMakeLists.txt not found in C:\Users\vuche\Study\semester_5\Algorithm-analysis\Labs\lab_01 Select CMakeLists.txt

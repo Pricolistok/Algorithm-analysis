@@ -10,6 +10,9 @@ int vinograd_algorithm_update(size_t n, size_t m, size_t t,
 
     if (n != t)
         return ERROR;
+    size_t idx1;
+    size_t idx2;
+
 
     size_t half_m = m / 2;
     size_t last = m - 1;
@@ -30,8 +33,8 @@ int vinograd_algorithm_update(size_t n, size_t m, size_t t,
         double sum = 0.0;
         for (size_t k = 0; k < half_m; k++)
         {
-            size_t idx1 = 2 * k;
-            size_t idx2 = idx1 + 1;
+            idx1 = 2 * k;
+            idx2 = idx1 + 1;
             sum += matrix_A[i][idx1] * matrix_A[i][idx2];
         }
         tmp_a[i] = sum;
@@ -42,8 +45,8 @@ int vinograd_algorithm_update(size_t n, size_t m, size_t t,
         double sum = 0.0;
         for (size_t k = 0; k < half_m; k++)
         {
-            size_t idx1 = 2 * k;
-            size_t idx2 = idx1 + 1;
+            idx1 = 2 * k;
+            idx2 = idx1 + 1;
             sum += matrix_B[idx1][j] * matrix_B[idx2][j];
         }
         tmp_b[j] = sum;
@@ -57,8 +60,8 @@ int vinograd_algorithm_update(size_t n, size_t m, size_t t,
 
             for (size_t k = 0; k < half_m; k++)
             {
-                size_t idx1 = 2 * k;
-                size_t idx2 = idx1 + 1;
+                idx1 = 2 * k;
+                idx2 = idx1 + 1;
 
                 res += (matrix_A[i][idx1] + matrix_B[idx2][j]) *
                        (matrix_A[i][idx2] + matrix_B[idx1][j]);
