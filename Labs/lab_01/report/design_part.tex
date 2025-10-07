@@ -90,7 +90,7 @@
 
 \subsection{Стандартный алгоритм}
 
-Трудоёмкость стандартного алгоритма (рис.~\ref{pic_simple_scheme}) складывается из трёх вложенных циклов и набора операций во внутреннем цикле. Итоговая трудоёмкость рассчитывается по формуле~(\ref{eq_classic}):
+Трудоёмкость стандартного алгоритма (рисунок~\ref{pic_simple_scheme}) складывается из трёх вложенных циклов и набора операций во внутреннем цикле. Итоговая трудоёмкость рассчитывается по формуле~(\ref{eq_classic}):
 \begin{equation}
 	\label{eq_classic}
 	f_{std} = 2 + P \cdot (2 + 2 + Q \cdot (2 + 2 + R \cdot (2 + 12))) = 14 P Q R + 4 P Q + 4 P + 2 \approx 14 P Q R
@@ -102,25 +102,25 @@
 Алгоритм Винограда состоит из четырёх этапов:
 
 \begin{enumerate}
-	\item \textbf{Заполнение массива \textit{mulH}}:  
+	\item \textbf{заполнение массива \textit{mulH}}:  
 	Для каждой строки A суммируются произведения пар элементов.  
 	\begin{equation}
 		f_1 = 2 + M \cdot (2 + 1 + 4 + \frac{N}{2} \cdot (4 + 1 + 6 + 2 + 3 \cdot 2)) = \frac{19}{2} MN + 7M + 2 \approx \frac{19}{2} MN
 	\end{equation}
 	
-	\item \textbf{Заполнение массива \textit{mulV}}:  
+	\item \textbf{заполнение массива \textit{mulV}}:  
 	Для каждого столбца B вычисляются промежуточные суммы.  
 	\begin{equation}
 		f_2 = 2 + K \cdot (2 + 1 + 4 + \frac{N}{2} \cdot (4 + 1 + 6 + 2 + 3 \cdot 2)) = \frac{19}{2} KN + 7K + 2 \approx \frac{19}{2} KN
 	\end{equation}
 	
-	\item \textbf{Заполнение матрицы \textit{C}}:  
+	\item \textbf{заполнение матрицы \textit{C}}:  
 	Используются заранее посчитанные суммы. Каждое вычисление ячейки включает доступы к буферам, сложения, умножения и корректировку.  
 	\begin{equation}
 		f_3 = 2 + M \cdot (2 + 2 + K \cdot (2 + 4 + 1 + 2 + 4 + \frac{N}{2} \cdot (4 + 12 + 1 + 5 + 5 \cdot 2))) = 16 M N K + 13 M K + 4 M + 2 \approx 16 M N K
 	\end{equation}
 	
-	\item \textbf{Корректировка для нечётного N}:  
+	\item \textbf{корректировка для нечётного N}:  
 	\begin{equation}
 		f_{if} = 
 		\begin{cases}
@@ -147,32 +147,32 @@
 Трудоёмкость этапов алгоритма (см. рисунки~\ref{pic_vinograd_opt_scheme_1}--\ref{pic_vinograd_opt_scheme_2}) оценивается следующим образом:
 
 \begin{enumerate}
-	\item \textbf{Заполнение массива \textit{mulH}.}  
+	\item \textbf{заполнение массива \textit{mulH}.}  
 	Сумма произведений элементов строк первой матрицы вычисляется заранее и сохраняется в буфер \textit{tmp\_a}. Трудоёмкость этого этапа задаётся формулой:
 	\begin{equation}
 		f_1 = 2 + P \cdot \left(2 + 1 + 2 + \frac{Q}{2} \cdot (2 + 1 + 6 + 1 + 1 + 1 \cdot 2) \right) 
 		= \frac{13}{2} P Q + 5 P + 2 \approx \frac{13}{2} P Q
 	\end{equation}
 	
-	\item \textbf{Заполнение массива \textit{mulV}.}  
+	\item \textbf{заполнение массива \textit{mulV}.}  
 	Аналогично формируется буфер \textit{tmp\_b} для столбцов второй матрицы:
 	\begin{equation}
 		f_2 = 2 + R \cdot \left(2 + 1 + 2 + \frac{Q}{2} \cdot (2 + 1 + 6 + 1 + 1 + 1 \cdot 2) \right)
 		= \frac{13}{2} R Q + 5 R + 2 \approx \frac{13}{2} R Q
 	\end{equation}
 	
-	\item \textbf{Вычисление результирующей матрицы \textit{C}.}  
+	\item \textbf{вычисление результирующей матрицы \textit{C}.}  
 	Основные вычисления включают использование предварительно накопленных сумм из буферов и коррекцию для нечётного $Q$:
 	
 	\begin{enumerate}
-		\item Для чётного $Q$:
+		\item для чётного $Q$:
 		\begin{multline}
 			f_{31} = 3 + 2 + M \cdot \Bigl(2 + 2 + K \cdot (2 + 4 + 1 + 2 + 2 + \frac{Q}{2} \cdot \\
 			(2 + 12 + 1 + 3 + 2 + 1 \cdot 2)) \Bigr) 
 			= 11 P Q R + 11 P R + 4 P + 5 \approx 11 P Q R
 		\end{multline}
 		
-		\item Для нечётного $Q$:
+		\item для нечётного $Q$:
 		\begin{multline}
 			f_{32} = 3 + 2 + M \cdot \Bigl(2 + 2 + K \cdot (2 + 8 + 1 + 4 + 1 + 1 \cdot 2 + \frac{Q}{2} \cdot \\
 			(2 + 12 + 1 + 3 + 2 + 1 \cdot 2)) \Bigr) 

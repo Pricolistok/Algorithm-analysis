@@ -1,3 +1,4 @@
+#include <cstddef>
 #ifndef LAB_01_INPUT_OUTPUT_H
 #define LAB_01_INPUT_OUTPUT_H
 

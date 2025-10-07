@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.9.26)  3 OCT 2025 01:41
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.9.26)  4 OCT 2025 13:33
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2248,7 +2248,8 @@ LaTeX Font Info:    Font shape `T2A/Tempora-TLF/m/n' will be
 (Font)              scaled to size 12.0pt on input line 9.
 Package babel Info: 'russian' activates 'russian' shorthands.
 (babel)             Reported on input line 9.
- (intro.aux) (analytic_part.aux) (design_part.aux))
+ (intro.aux) (analytic_part.aux) (design_part.aux) (tech_part.aux)
+(experimental_part.aux) (conclusions.aux) (links.aux) (appends.aux))
 \openout1 = `report.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 3.
@@ -2400,7 +2401,7 @@ Package hyperref Info: Link coloring OFF on input line 3.
 \openout2 = `title.aux'.
 
  (title.tex
-<images/b_logo.png, id=62, 1741.50626pt x 2055.68pt>
+<images/b_logo.png, id=118, 1741.50626pt x 2055.68pt>
 File: images/b_logo.png Graphic file (type png)
 <use images/b_logo.png>
 Package pdftex.def Info: images/b_logo.png  used on input line 4.
@@ -2518,6 +2519,8 @@ LaTeX Font Info:    Font shape `T2A/Tempora-TLF/b/n' will be
 
 
 ]
+
+[3]
 \openout2 = `intro.aux'.
 
  (intro.tex
@@ -2527,14 +2530,7 @@ LaTeX Font Info:    Font shape `T2A/Tempora-TLF/b/n' will be
 (Font)              scaled to size 22.0pt on input line 1.
 
 
-LaTeX Warning: Citation `matrix' on page 3 undefined on input line 8.
-
-
-LaTeX Warning: Citation `vinograd' on page 3 undefined on input line 8.
-
-
-
-[3
+[4
 
 ])
 \openout2 = `analytic_part.aux'.
@@ -2546,32 +2542,23 @@ LaTeX Font Info:    Font shape `T2A/Tempora-TLF/m/n' will be
 LaTeX Font Info:    Font shape `T2A/Tempora-TLF/b/n' will be
 (Font)              scaled to size 16.0pt on input line 1.
 
-LaTeX Warning: Citation `matrix' on page 4 undefined on input line 6.
 
-
-
-[4
+[5
 
 
 
 
 
 ]
-Overfull \hbox (0.85834pt too wide) in paragraph at lines 86--88
-[]\T2A/Tempora-TLF/b/n/12 ѕредварительное вы-чис-ле-ние по-сто-€н-ных вы-ра-же-
-ний. \T2A/Tempora-TLF/m/n/12 «на-че-ни€, за-ви-с€-щие толь-
- []
 
+[6]
 
-
-[5]
-
-[6])
+[7])
 \openout2 = `design_part.aux'.
 
  (design_part.tex
 {\cyrillictext \CYRG \cyrl \cyra \cyrv \cyra } 2.
-<images/simple_scheme.png, id=137, 357.335pt x 1105.12875pt>
+<images/simple_scheme.png, id=214, 357.335pt x 1105.12875pt>
 File: images/simple_scheme.png Graphic file (type png)
 <use images/simple_scheme.png>
 Package pdftex.def Info: images/simple_scheme.png  used on input line 25.
@@ -2581,7 +2568,7 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
 
-[7
+[8
 
 
 
@@ -2589,8 +2576,8 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 ]
 
-[8 <./images/simple_scheme.png>]
-<images/vinograd_scheme_1.png, id=155, 347.2975pt x 1275.76625pt>
+[9 <./images/simple_scheme.png>]
+<images/vinograd_scheme_1.png, id=231, 347.2975pt x 1275.76625pt>
 File: images/vinograd_scheme_1.png Graphic file (type png)
 <use images/vinograd_scheme_1.png>
 Package pdftex.def Info: images/vinograd_scheme_1.png  used on input line 32.
@@ -2601,8 +2588,8 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
 
-[9 <./images/vinograd_scheme_1.png>]
-<images/vinograd_scheme_2.png, id=161, 472.76625pt x 1215.54124pt>
+[10 <./images/vinograd_scheme_1.png>]
+<images/vinograd_scheme_2.png, id=237, 472.76625pt x 1215.54124pt>
 File: images/vinograd_scheme_2.png Graphic file (type png)
 <use images/vinograd_scheme_2.png>
 Package pdftex.def Info: images/vinograd_scheme_2.png  used on input line 39.
@@ -2613,8 +2600,8 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
 
-[10 <./images/vinograd_scheme_2.png>]
-<images/vinograd_opt_scheme_1.png, id=169, 347.2975pt x 1677.26625pt>
+[11 <./images/vinograd_scheme_2.png>]
+<images/vinograd_opt_scheme_1.png, id=245, 347.2975pt x 1677.26625pt>
 File: images/vinograd_opt_scheme_1.png Graphic file (type png)
 <use images/vinograd_opt_scheme_1.png>
 Package pdftex.def Info: images/vinograd_opt_scheme_1.png  used on input line 5
@@ -2626,14 +2613,14 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
 
-[11
+[12
 
 
 
 ]
 
-[12 <./images/vinograd_opt_scheme_1.png>]
-<images/vinograd_opt_scheme_2.png, id=183, 473.77pt x 1366.10374pt>
+[13 <./images/vinograd_opt_scheme_1.png>]
+<images/vinograd_opt_scheme_2.png, id=260, 473.77pt x 1366.10374pt>
 File: images/vinograd_opt_scheme_2.png Graphic file (type png)
 <use images/vinograd_opt_scheme_2.png>
 Package pdftex.def Info: images/vinograd_opt_scheme_2.png  used on input line 6
@@ -2645,7 +2632,7 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
 
-[13 <./images/vinograd_opt_scheme_2.png>]
+[14 <./images/vinograd_opt_scheme_2.png>]
 LaTeX Font Info:    Font shape `T2A/Tempora-TLF/m/it' will be
 (Font)              scaled to size 12.0pt on input line 73.
 
@@ -2659,7 +2646,7 @@ LaTeX Font Info:    Font shape `T2A/Tempora-TLF/b/it' will be
 (Font)              scaled to size 12.0pt on input line 105.
 
 
-[14
+[15
 
 
 ]
@@ -2675,20 +2662,127 @@ K
 
 
 
-[15]
+[16]
 
-[16])
+[17])
+\openout2 = `tech_part.aux'.
 
-Package caption Warning: Unused \captionsetup[table] on input line 97.
-See the caption package documentation for explanation.
+ (tech_part.tex
+{\cyrillictext \CYRG \cyrl \cyra \cyrv \cyra } 3.
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
+nput line 17.
+LaTeX Font Info:    Font shape `T2A/Tempora-TLF/m/n' will be
+(Font)              scaled to size 10.95pt on input line 17.
+LaTeX Font Info:    Trying to load font information for T2A+cmtt on input line 
+17.
+(C:\Users\vuche\AppData\Local\Programs\MiKTeX\tex/latex/cyrillic\t2acmtt.fd
+File: t2acmtt.fd 2001/08/11 v1.0a Computer Modern Cyrillic font definitions
+)
+LaTeX Font Info:    Font shape `T2A/cmtt/bx/n' in size <10.95> not available
+(Font)              Font shape `T2A/cmtt/m/n' tried instead on input line 21.
+
+Overfull \hbox (6.15976pt too wide) in paragraph at lines 275--275
+ []$| 
+ []
 
 
-Package caption Warning: Unused \captionsetup[lstlisting] on input line 122.
-See the caption package documentation for explanation.
+
+[18
 
 
+
+
+
+]
+
+[19]
+
+[20])
+\openout2 = `experimental_part.aux'.
+
+ (experimental_part.tex
+{\cyrillictext \CYRG \cyrl \cyra \cyrv \cyra } 4.
+
+
+[21
+
+
+
+
+
+]
+
+[22]
+<images/standard.png, id=376, 578.16pt x 433.62pt>
+File: images/standard.png Graphic file (type png)
+<use images/standard.png>
+Package pdftex.def Info: images/standard.png  used on input line 138.
+(pdftex.def)             Requested size: 398.33858pt x 298.75482pt.
+<images/winograd.png, id=378, 578.16pt x 433.62pt>
+File: images/winograd.png Graphic file (type png)
+<use images/winograd.png>
+Package pdftex.def Info: images/winograd.png  used on input line 147.
+(pdftex.def)             Requested size: 398.33858pt x 298.75482pt.
+
+
+[23 <./images/standard.png>]
+<images/improved_winograd.png, id=387, 578.16pt x 433.62pt>
+File: images/improved_winograd.png Graphic file (type png)
+<use images/improved_winograd.png>
+Package pdftex.def Info: images/improved_winograd.png  used on input line 156.
+(pdftex.def)             Requested size: 398.33858pt x 298.75482pt.
+
+
+[24 <./images/winograd.png> <./images/improved_winograd.png>]
+<images/comparison.png, id=396, 722.7pt x 433.62pt>
+File: images/comparison.png Graphic file (type png)
+<use images/comparison.png>
+Package pdftex.def Info: images/comparison.png  used on input line 165.
+(pdftex.def)             Requested size: 398.33858pt x 239.0012pt.
+
+
+[25 <./images/comparison.png>])
+
+[26]
+\openout2 = `conclusions.aux'.
+
+ (conclusions.tex)
+
+[27
+
+
+
+]
+\openout2 = `links.aux'.
+
+ (links.tex)
+
+[28
+
+
+
+
+]
+\openout2 = `appends.aux'.
+
+ (appends.tex
+
+[29
+
+
+
+
+]
+
+[30]
+
+[31])
+
+[32] 
 enddocument/afterlastpage (AED): lastpage setting LastPage.
-(report.aux (title.aux) (intro.aux) (analytic_part.aux) (design_part.aux))
+(report.aux (title.aux) (intro.aux) (analytic_part.aux) (design_part.aux)
+(tech_part.aux) (experimental_part.aux) (conclusions.aux) (links.aux)
+(appends.aux))
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-09-02>
@@ -2697,36 +2791,35 @@ L3 programming layer <2025-09-02>
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-
-LaTeX Warning: There were undefined references.
-
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: 30E04EEF0C5D494156286798E2A98EFB;3077.
+(rerunfilecheck)             Checksum: 924C05B620F3345415E932C5D1735F62;6049.
  ) 
 Here is how much of TeX's memory you used:
- 42345 strings out of 468130
- 929143 string characters out of 5430633
- 1537509 words of memory out of 5000000
- 70133 multiletter control sequences out of 15000+600000
- 678872 words of font info for 98 fonts, out of 8000000 for 9000
+ 43233 strings out of 468130
+ 942964 string characters out of 5430633
+ 1752510 words of memory out of 5000000
+ 70758 multiletter control sequences out of 15000+600000
+ 681641 words of font info for 101 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 106i,18n,110p,745b,748s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<C:/Users/vuche/AppData/Local/Programs/MiKTeX/fonts/type1/public/tempora/Temp
-ora-Bold.pfb><C:/Users/vuche/AppData/Local/Programs/MiKTeX/fonts/type1/public/t
-empora/Tempora-BoldItalic.pfb><C:/Users/vuche/AppData/Local/Programs/MiKTeX/fon
-ts/type1/public/tempora/Tempora-Italic.pfb><C:/Users/vuche/AppData/Local/Progra
-ms/MiKTeX/fonts/type1/public/tempora/Tempora-Regular.pfb><C:/Users/vuche/AppDat
-a/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/vuc
-he/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/
-Users/vuche/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.
+ 106i,19n,110p,849b,2177s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ <C:\Users\vuche\AppData\Local\MiKTeX\fonts/pk/ljfour/lh/lh-t2a/dpi600\latt12
+00.pk> <C:\Users\vuche\AppData\Local\MiKTeX\fonts/pk/ljfour/lh/lh-t2a/dpi600\la
+tt1095.pk><C:/Users/vuche/AppData/Local/Programs/MiKTeX/fonts/type1/public/temp
+ora/Tempora-Bold.pfb><C:/Users/vuche/AppData/Local/Programs/MiKTeX/fonts/type1/
+public/tempora/Tempora-BoldItalic.pfb><C:/Users/vuche/AppData/Local/Programs/Mi
+KTeX/fonts/type1/public/tempora/Tempora-Italic.pfb><C:/Users/vuche/AppData/Loca
+l/Programs/MiKTeX/fonts/type1/public/tempora/Tempora-Regular.pfb><C:/Users/vuch
+e/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/U
+sers/vuche/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.
 pfb><C:/Users/vuche/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/c
-m/cmr12.pfb><C:/Users/vuche/AppData/Local/Programs/MiKTeX/fonts/type1/public/am
-sfonts/cm/cmr8.pfb><C:/Users/vuche/AppData/Local/Programs/MiKTeX/fonts/type1/pu
-blic/amsfonts/cm/cmsy10.pfb><C:/Users/vuche/AppData/Local/Programs/MiKTeX/fonts
-/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on report.pdf (16 pages, 1511497 bytes).
+m/cmmi8.pfb><C:/Users/vuche/AppData/Local/Programs/MiKTeX/fonts/type1/public/am
+sfonts/cm/cmr12.pfb><C:/Users/vuche/AppData/Local/Programs/MiKTeX/fonts/type1/p
+ublic/amsfonts/cm/cmr8.pfb><C:/Users/vuche/AppData/Local/Programs/MiKTeX/fonts/
+type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/vuche/AppData/Local/Programs/MiKT
+eX/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
+Output written on report.pdf (32 pages, 2078256 bytes).
 PDF statistics:
- 304 PDF objects out of 1000 (max. 8388607)
- 85 named destinations out of 1000 (max. 500000)
- 155 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 793 PDF objects out of 1000 (max. 8388607)
+ 308 named destinations out of 1000 (max. 500000)
+ 287 words of extra memory for PDF output out of 10000 (max. 10000000)
 

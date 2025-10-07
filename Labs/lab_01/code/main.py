@@ -28,7 +28,6 @@ def read_data(filename):
 
 def plot_graph(x, y, title, xlabel, ylabel, filename_base, color='blue'):
     plt.figure(figsize=(8,6))
-    # Убрали marker='o'
     plt.plot(x, y, color=color)
     plt.title(title)
     plt.xlabel(xlabel)
@@ -45,10 +44,10 @@ def plot_graph(x, y, title, xlabel, ylabel, filename_base, color='blue'):
 
 def plot_comparison(x, y1, y2, y3, filename_base):
     plt.figure(figsize=(10,6))
-    # Убрали marker='o'
-    plt.plot(x, y1, color='blue', label='Обычный')
-    plt.plot(x, y2, color='green', label='Виноград')
-    plt.plot(x, y3, color='red', label='Улучшенный Виноград')
+    # Разные стили линий для каждого алгоритма
+    plt.plot(x, y1, color='blue', linestyle='-', linewidth=2, label='Обычный')  # сплошная линия
+    plt.plot(x, y2, color='green', linestyle='--', linewidth=2, label='Виноград')  # пунктирная
+    plt.plot(x, y3, color='red', linestyle=':', linewidth=2, label='Улучшенный Виноград')  # точечная
     plt.title("Сравнение алгоритмов умножения матриц")
     plt.xlabel("Размер матрицы")
     plt.ylabel("Время (тики)")
@@ -61,7 +60,6 @@ def plot_comparison(x, y1, y2, y3, filename_base):
     plt.savefig(f"{filename_base}.png", dpi=300)
     plt.savefig(f"{filename_base}.svg")
     plt.close()
-
 
 
 def main():
