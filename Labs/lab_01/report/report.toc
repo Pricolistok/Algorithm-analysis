@@ -23,7 +23,7 @@
 \contentsline {subsection}{\numberline {4.2.1}Малая серия (1–19)}{21}{subsection.4.2.1}%
 \contentsline {subsection}{\numberline {4.2.2}Чётная серия (50–450)}{22}{subsection.4.2.2}%
 \contentsline {subsection}{\numberline {4.2.3}Нечётная серия (51–451)}{22}{subsection.4.2.3}%
-\contentsline {section}{\numberline {4.3}Графики}{23}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Анализ результатов}{25}{section.4.4}%
+\contentsline {section}{\numberline {4.3}Графики зависимости времени выполнения от размера матрицы}{23}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Анализ результатов}{26}{section.4.4}%
 \contentsline {chapter}{ЗАКЛЮЧЕНИЕ}{27}{Item.40}%
-\contentsline {chapter}{Приложения}{29}{chapter*.15}%
+\contentsline {chapter}{Приложение А}{29}{chapter*.15}%
