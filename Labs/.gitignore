@@ -20,7 +20,9 @@
 .venv/
 __pycache__/
 *.pyc
+*.sh
 cmake-build-debug/
 code/out/unit
 results.txt
 -p
+*.synctex
